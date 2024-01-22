@@ -19,6 +19,7 @@ const StyledNoData = styled.div`
     color: var(--dark-blue-grey-color);
   }
 `;
+
 function NoData() {
   const navigate = useNavigate();
   return (

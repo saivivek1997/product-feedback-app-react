@@ -19,6 +19,7 @@ function SuggestionDetailsPage() {
   const { singleSuggestionDetail, productRequests } = useSelector(
     (state) => state.suggestion
   );
+
   useEffect(() => {
     const productDetails = getStorage("product-details")
       ? getStorage("product-details")
@@ -33,7 +34,6 @@ function SuggestionDetailsPage() {
   const handleButton = () => {
     navigate(`/editform/${id}`);
   };
-
   return (
     <Container>
       <div className="back-edit row-between">
@@ -46,7 +46,10 @@ function SuggestionDetailsPage() {
           Edit Feedback
         </Button>
       </div>
-      <SuggestionCardItem {...singleSuggestionDetail} />
+      <SuggestionCardItem
+        {...singleSuggestionDetail}
+        key={singleSuggestionDetail}
+      />
       <Comments comments={singleSuggestionDetail?.comments} hasHeadingComment />
       <CommentForm />
       {name}

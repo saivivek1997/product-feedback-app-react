@@ -11,6 +11,7 @@ import useIconCheck from "@/hooks/useIconCheck";
 import { convertArrayToObject } from "@/utils/helpers";
 import useFormData from "@/hooks/useFormData";
 import { addFormData } from "../suggestion/SuggestionSlice";
+import useToastify from "@/hooks/useToastify";
 
 export const Container = styled.div`
   .back-container {
@@ -18,7 +19,7 @@ export const Container = styled.div`
   }
   .back {
     max-width: 600px;
-    /* margin: 50px auto; */
+    margin: 0 auto;
     display: flex;
     align-items: center;
     gap: 8px;
@@ -49,6 +50,15 @@ function AddForm() {
     handleFormData,
   } = useFormData(initialData, handleSelect);
 
+  const { notify } = useToastify();
+
+  function isFieldsEmpty() {
+    for (let key in formData) {
+      if (formData[key].length === 0) return true;
+    }
+    return false;
+  }
+
   return (
     <Container>
       <div className="back-container">
@@ -64,18 +74,21 @@ function AddForm() {
         title="Create New Feedback"
         numberOfButtons={2}
         formType="add"
-        handleSubmit={(event) =>
+        handleSubmit={(event) => {
           handleFormData(
             event,
             {
-              id: new Date().getMilliseconds(),
+              id: new Date().valueOf(),
               status: "suggestion",
               upvotes: 0,
               ...formData,
             },
-            addFormData
-          )
-        }
+            addFormData,
+            "",
+            isFieldsEmpty
+          );
+          !isFieldsEmpty() && notify("Added Data Successfully", "success");
+        }}
       >
         <InputTextbox
           heading="Feedback Title"
@@ -108,7 +121,12 @@ function AddForm() {
           >
             Cancel
           </Button>
-          <Button bgColor="#ad1fea" className="add-button" type="submit">
+          <Button
+            bgColor="#ad1fea"
+            className="add-button"
+            type="submit"
+            disabled={isFieldsEmpty()}
+          >
             Add Feedback
           </Button>
         </div>

@@ -16,6 +16,7 @@ import {
   getSuggestionDetailsById,
 } from "../suggestion/SuggestionSlice";
 import useFormData from "@/hooks/useFormData";
+import useToastify from "@/hooks/useToastify";
 
 export const Container = styled.div`
   .back-container {
@@ -47,7 +48,6 @@ function EditForm() {
     "in-progress",
     "live",
   ]);
-  console.log(isIconChecked, "isIconchecked");
   const {
     handleSelect: handleCategorySelect,
     isIconChecked: isCategoryIconChecked,
@@ -68,6 +68,14 @@ function EditForm() {
     sendSelectData,
   } = useFormData(singleSuggestionDetail);
 
+  const { notify } = useToastify();
+  function isFieldsEmpty() {
+    for (let key in formData) {
+      if (formData[key].length === 0) return true;
+    }
+    return false;
+  }
+
   return (
     <Container>
       <div className="back-container">
@@ -83,7 +91,10 @@ function EditForm() {
         title={singleSuggestionDetail.title}
         numberOfButtons={3}
         formType="edit"
-        handleSubmit={(e) => handleFormData(e, formData, editFeedback, id)}
+        handleSubmit={(e) => {
+          handleFormData(e, formData, editFeedback, id, isFieldsEmpty);
+          !isFieldsEmpty() && notify("Edited Data Successfully", "success");
+        }}
       >
         <InputTextbox
           heading="Feedback Title"
@@ -132,6 +143,7 @@ function EditForm() {
             handleButton={() => {
               dispatch(deleteFormData({ id: formData.id }));
               navigate("/");
+              notify("Deleted Successfully");
             }}
           >
             Delete
@@ -144,7 +156,11 @@ function EditForm() {
             >
               Cancel
             </Button>
-            <Button bgColor="#ad1fea" className="add-button">
+            <Button
+              bgColor="#ad1fea"
+              className="add-button"
+              disabled={isFieldsEmpty()}
+            >
               Add Feedback
             </Button>
           </div>

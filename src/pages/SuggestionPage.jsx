@@ -14,12 +14,18 @@ import IconHamBurger from "../assets/shared/mobile/icon-hamburger.svg";
 import IconClose from "../assets/shared/mobile/icon-close.svg";
 import Sidebar from "@/components/ui/Sidebar";
 
+export const tags = [
+  { label: "All", value: "all" },
+  { label: "UI", value: "UI" },
+  { label: "UX", value: "UX" },
+  { label: "Enhancement", value: "enhancement" },
+  { label: "Bug", value: "bug" },
+  { label: "Feature", value: "feature" },
+];
+
 function SuggestionPage() {
   const dispatch = useDispatch();
   const { isMobile } = useMobileDeviceDetector();
-
-  console.log(isMobile, "isMobile");
-  const tags = ["All", "UI", "UX", "Enhancement", "Bug", "Feature"];
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [activeClass, setActiveClass] = useState("All");
   const handleTag = (tag) => setActiveClass(tag);
@@ -54,7 +60,7 @@ function SuggestionPage() {
           {tags.map((tag) => (
             <Tags
               tag={tag}
-              key={tag}
+              key={tag.label}
               activeClass={activeClass}
               onHandleTag={handleTag}
             />

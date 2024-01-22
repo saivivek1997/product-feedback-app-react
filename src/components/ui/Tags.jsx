@@ -34,14 +34,14 @@ const Tags = ({
   const dispatch = useDispatch();
   const handleTag = () => {
     onHandleTag(tag);
-    dispatch(getCategoryFilter({ id: tag }));
+    dispatch(getCategoryFilter({ id: tag.value }));
   };
   return (
     <Tag
       className={`row-center ${activeClass === tag && "active-button"}`}
       onClick={noClickFunction && handleTag}
     >
-      <p>{tag}</p>
+      <p>{tag?.label}</p>
     </Tag>
   );
 };

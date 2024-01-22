@@ -114,7 +114,6 @@ function RoadMapPage() {
     roadMapNumbers,
     roadMapDetails: { planned, inProgress, live },
   } = useSelector((state) => state.roadmap);
-  console.log(roadMapNumbers, "roadmapnumbers");
 
   const state = useSelector((state) => state.roadmap);
 

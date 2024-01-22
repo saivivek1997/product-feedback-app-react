@@ -7,6 +7,7 @@ import { increaseUpvotes } from "./SuggestionSlice";
 import { Link } from "react-router-dom";
 import MenuIconSvg from "@/components/MenuIconSvg";
 import useMobileDeviceDetector from "@/hooks/useMobileDeviceDetector";
+import { tags } from "@/pages/SuggestionPage";
 
 const SuggestionCardItem = ({
   id,
@@ -16,6 +17,9 @@ const SuggestionCardItem = ({
   description,
   upvotes,
 }) => {
+  const getTagLabelAndValue = (category) => {
+    return tags.find((tag) => category === tag.value);
+  };
   const dispatch = useDispatch();
   const { isMobile } = useMobileDeviceDetector();
   return !isMobile ? (
@@ -33,7 +37,7 @@ const SuggestionCardItem = ({
           <div className="column">
             <p className="title">{title}</p>
             <p className="description">{description}</p>
-            <Tags tag={category} />
+            <Tags tag={getTagLabelAndValue(category)} />
           </div>
         </Link>
       </div>
@@ -50,7 +54,7 @@ const SuggestionCardItem = ({
             <p className="title">{title}</p>
             <p className="description">{description}</p>
             <div className="tag">
-              <Tags tag={category} />
+              <Tags tag={getTagLabelAndValue(category)} />
             </div>
           </div>
         </Link>

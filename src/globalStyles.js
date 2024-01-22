@@ -121,6 +121,11 @@ const GlobalStyles = createGlobalStyle`
       display: none;
     }
   }
+  //toast
+
+.toast-message{
+  max-width: 400px;
+}
 `;
 
 export default GlobalStyles;

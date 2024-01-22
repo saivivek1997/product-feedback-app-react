@@ -7,11 +7,14 @@ import SuggestionDetailsPage from "./pages/SuggestionDetailsPage";
 import AddForm from "./features/form/AddForm";
 import EditForm from "./features/form/EditForm";
 import RoadMapPage from "./pages/RoadMapPage";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
     <>
       <GlobalStyles />
+      <ToastContainer />
       <Routes>
         <Route path="/" element={<SuggestionPage />} />
         <Route path="/suggestion/:id" element={<SuggestionDetailsPage />} />

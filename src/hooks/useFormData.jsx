@@ -23,10 +23,12 @@ function useFormData(initialData, id) {
     setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
   }
 
-  function handleFormData(event, formData, fn, id) {
+  function handleFormData(event, formData, fn, id, isFieldsEmpty) {
     event.preventDefault();
-    id ? dispatch(fn({ formData, id })) : dispatch(fn({ formData }));
-    navigate("/");
+    if (!isFieldsEmpty()) {
+      id ? dispatch(fn({ formData, id })) : dispatch(fn({ formData }));
+      navigate("/");
+    }
   }
 
   const handleCancelButton = () => {

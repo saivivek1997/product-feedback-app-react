@@ -53,14 +53,14 @@ export const SuggestionSlice = createSlice({
       setStorage("product-details", state.productRequests);
     },
     getCategoryFilter: (state, action) => {
-      if (action.payload.id.toLowerCase() === "all") {
+      if (action.payload.id === "all") {
         state.suggestionDetails = getStorage("product-details").filter(
           (product) => product.status === "suggestion"
         );
       } else
         state.suggestionDetails = getStorage("product-details").filter(
           (product) =>
-            product.category === action.payload.id.toLowerCase() &&
+            product.category === action.payload.id &&
             product.status === "suggestion"
         );
     },
@@ -137,8 +137,6 @@ export const SuggestionSlice = createSlice({
     },
 
     addComments: (state, action) => {
-      console.log(action, "action");
-      console.log(original(state), "before state");
       state.productRequests = state.productRequests.map((productRequest) =>
         productRequest.id === action.payload.id
           ? {
