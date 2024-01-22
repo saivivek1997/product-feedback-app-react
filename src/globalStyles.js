@@ -124,7 +124,8 @@ const GlobalStyles = createGlobalStyle`
   //toast
 
 .toast-message{
-  max-width: 400px;
+  max-width: 300px;
+   margin:20px auto;
 }
 `;
 
